@@ -12,6 +12,20 @@
 
 
 
+  function validate_user_login($user_name, $password) {
+
+    $user = get_user_from_db($user_name);
+
+    if (!$user) {
+      return 0;
+    }
+
+    return ($user["password"] == $password);
+
+  }
+
+
+
   function get_board_state($game_id) {
 
     $raw_board_state = get_board_state_from_db($game_id);
@@ -187,6 +201,14 @@
       echo "</tr>";
     }
   }
+
+
+
+  function get_user_games($user_id) {
+    return get_user_games_from_db($user_id);
+  }
+
+
 
 
 ?>

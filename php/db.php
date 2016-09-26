@@ -159,7 +159,29 @@
 
     disconnect_from_db();
   }
-  
+ 
+
+
+  function get_user_games_from_db($user_id) {
+
+    connect_to_db();
+
+    $query = mysql_query("SELECT a.game_id AS game_id, b.user_name AS opponent FROM games a, users b " .
+                         "WHERE (a.red_player=$user_id AND a.black_player=b.user_id) " .
+                         "OR (a.black_player=$user_id AND a.red_player=b.user_id);");
+
+    $i = 0;
+
+    while ($row = mysql_fetch_assoc($query)) {
+      $games[$i] = $row;
+      $i++;
+    }
+
+    disconnect_from_db();
+ 
+    return $games;
+  }
+ 
 
 ?>
 
